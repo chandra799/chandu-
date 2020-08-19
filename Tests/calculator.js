@@ -71,7 +71,7 @@ it('modulus',function () {
     page1_cal.operator_Mod();
     page1_cal.secondNum(secondMod);
     page1_cal.go();
-    page1_cal.verify('1');
+    page1_cal.verify('0');
 });
 
 });
