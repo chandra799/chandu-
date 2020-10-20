@@ -1,4 +1,5 @@
 var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 var reporter = new HtmlScreenshotReporter({
     dest: 'target/screenshots',
@@ -13,10 +14,11 @@ exports.config = {
         'browserName': 'chrome'
     },
     framework: 'jasmine',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
-    specs: ['E:/Protractortraining/Tests/calculator.js'],
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
+    // specs: ['E:/Protractortraining/Tests/cal_3.js'],
     jasmineNodeOpts: {
-        defaultTimeoutInterval: 30000
+        defaultTimeoutInterval: 30000,
+        showColors: true, // Use colors in the command line report.
     },
 
     // Setup the report before any tests start
@@ -28,12 +30,19 @@ exports.config = {
 
     // Assign the test reporter to each running instance
     onPrepare: function () {
+
+        browser.manage().window().maximize();
         jasmine.getEnv().addReporter(reporter);
         var AllureReporter = require('jasmine-allure-reporter');
         jasmine.getEnv().addReporter(new AllureReporter({
             resultsDir: 'allure-results'
         }));
 
+        jasmine.getEnv().addReporter(
+            new Jasmine2HtmlReporter({
+              savePath: 'target/screenshots'
+            })
+          );
 
         jasmine.getEnv().afterEach(function(done){
           browser.takeScreenshot().then(function (png) {
@@ -73,6 +82,11 @@ fs.emptyDir('screenshots/', function (err) {
         }
     });
     
+    },
+    suites :
+    {
+        smoke : ['../Tests/cal_2.js'],
+        regression : '../Tests/calculator.js',
     },
 
     // Close the report after all tests finish

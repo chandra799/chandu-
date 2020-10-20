@@ -30,8 +30,7 @@ this.operator_Mul = function () {
 };
 
 this.operator_Div = function () {
-    element(by.model('operator')).click();
-    element(by.css('[value="DIVISION"]')).click();   
+    element(by.model('operator')).element(by.css('[value="DIVISION"]')).click();   
 };
 
 this.operator_Mod = function () {
@@ -51,6 +50,54 @@ this.link = function (url) {
     browser.get(url);
 };
 
+this.add1 = function(a,b){
+    firstNum_input.sendKeys(a);
+    element(by.model('operator')).element(by.css('[value="ADDITION"]')).click();
+    secondNum_input.sendKeys(b);
+    go_button.click();
+    return (a+b);
+}
+
+this.sub1 = function(c,d){
+    firstNum_input.sendKeys(c);
+    element(by.model('operator')).element(by.css('[value="SUBTRACTION"]')).click();
+    secondNum_input.sendKeys(d);
+    go_button.click();
+    return(c-d);
+}
+
+this.mul1 = function(e,f){
+    firstNum_input.sendKeys(e);
+    element(by.model('operator')).element(by.css('[value="MULTIPLICATION"]')).click();
+    secondNum_input.sendKeys(f);
+    go_button.click();
+    return(e*f);
+}
+
+this.div1 = function(g,h){
+    firstNum_input.sendKeys(g);
+    element(by.model('operator')).element(by.css('[value="DIVISION"]')).click();
+    secondNum_input.sendKeys(h);
+    go_button.click();
+    return(g/h);
+}
+
+this.mod1 = function(i,j){
+    firstNum_input.sendKeys(i);
+    element(by.xpath('//*[@ng-model="operator"]//option[3]')).click();
+    secondNum_input.sendKeys(j);
+    go_button.click();
+    return(i%j);
+}
+
+this.cal = function (a,b,c) {
+    firstNum_input.sendKeys(a);
+    element(by.model('operator')).element(by.css('[value='+c+']')).click();
+    // element(by.xpath('//*[@ng-model="operator"]//option['+c+']')).click();
+    secondNum_input.sendKeys(b);
+    go_button.click();
+    
+}
 };
 
 module.exports= new calpage();
